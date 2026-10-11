@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Knows - Vintage Fairytale Beauty & Cosmetics</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS with Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fk-cream': '#FCF9F6',
+                        'fk-cream-light': '#FFFDFB',
+                        'fk-pink': '#FDF0F3',
+                        'fk-pink-deep': '#F9D8E2',
+                        'fk-rose': '#D87093',
+                        'fk-gold': '#D4AF37',
+                        'fk-gold-light': '#F3E5AB',
+                        'fk-gold-dark': '#A37C1E',
+                        'fk-bronze': '#8B6B23',
+                        'fk-dark': '#2B2329',
+                        'fk-soft-border': '#F0E0E5'
+                    },
+                    fontFamily: {
+                        'cinzel': ['"Cinzel"', 'serif'],
+                        'playfair': ['"Playfair Display"', 'serif'],
+                        'cormorant': ['"Cormorant Garamond"', 'serif'],
+                        'sans': ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Custom Scrollbar */
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: #FCF9F6; }
+        ::-webkit-scrollbar-thumb { background: #F9D8E2; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D87093; }
+
+        /* Ornate Gold Vintage Frames */
+        .vintage-border {
+            border: 2px solid #E6CD8B;
+            outline: 1px solid #FCF9F6;
+            outline-offset: -5px;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.08);
+        }
+
+        .vintage-border-rose {
+            border: 2px solid #F9D8E2;
+            outline: 1px solid #D87093;
+            outline-offset: -4px;
+        }
+
+        /* Metallic Gold Shimmer Gradient */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #8B6B23 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-gradient-bg {
+            background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #C59B27 100%);
+        }
+
+        /* Hover Transitions & Drawer Animation */
+        .drawer-slide { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-fade { transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out; }
+
+        /* Pulse glow for hotspot */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+        .hotspot-pulse { animation: pulseGlow 2s infinite; }
+    </style>
+</head>
+<body class="bg-fk-cream text-fk-dark font-sans antialiased selection:bg-fk-pink-deep selection:text-fk-dark">
+
+    <!-- Top Announcement Marquee & Settings Bar -->
+    <div id="announcement-bar" class="bg-gradient-to-r from-fk-pink via-fk-pink-deep to-fk-pink text-fk-dark text-xs py-2 px-4 border-b border-fk-soft-border sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            
+            <!-- Promo Messages Marquee -->
+            <div class="flex items-center space-x-2 font-medium tracking-wide">
+                <span class="bg-fk-gold/20 text-fk-gold-dark text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border border-fk-gold/30">Limited</span>
+                <span id="promo-text-display"><i class="fa-solid fa-gift text-fk-rose mr-1"></i> Free Gift on Orders Over $50 | Free Worldwide Express Shipping</span>
+                <span class="hidden md:inline text-fk-rose">•</span>
+                <span class="hidden md:inline text-xs font-cormorant italic font-semibold text-fk-gold-dark">Offer Ends In: <span id="promo-timer" class="font-bold font-sans not-italic">05:42:19</span></span>
+            </div>
+
+            <!-- Currency & Language Switchers -->
+            <div class="flex items-center space-x-4 text-xs">
+                <div class="flex items-center space-x-1">
+                    <i class="fa-solid fa-globe text-fk-rose text-xs"></i>
+                    <select id="currency-select" class="bg-transparent border-none font-medium focus:outline-none cursor-pointer text-fk-dark">
+                        <option value="USD">$ USD</option>
+                        <option value="EUR">€ EUR</option>
+                        <option value="JPY">¥ JPY</option>
+                        <option value="VND">₫ VND</option>
+                    </select>
+                </div>
+                <div class="h-3 w-[1px] bg-fk-rose/30"></div>
+                <select id="language-select" class="bg-transparent border-none font-medium focus:outline-none cursor-pointer text-fk-dark">
+                    <option value="EN">English</option>
+                    <option value="FR">Français</option>
+                    <option value="JA">日本語</option>
+                    <option value="VI">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="bg-fk-cream-light/90 backdrop-blur-md border-b border-fk-soft-border sticky top-[33px] z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                
+                <!-- Mobile Menu Icon -->
+                <button id="mobile-menu-btn" class="lg:hidden text-fk-dark hover:text-fk-rose p-2" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+
+                <!-- Brand Logo Center/Left -->
+                <a href="#" class="flex flex-col items-center group">
+                    <span id="brand-logo-text" class="font-cinzel text-2xl sm:text-3xl font-bold tracking-[0.2em] text-fk-dark group-hover:text-fk-rose transition-colors uppercase">
+                        FLOWER KNOWS
+                    </span>
+                    <div class="flex items-center gap-2 -mt-1">
+                        <span class="h-[1px] w-4 bg-fk-gold"></span>
+                        <span class="font-cormorant text-xs tracking-[0.3em] text-fk-gold-dark uppercase italic font-medium">Makeup Fairytale</span>
+                        <span class="h-[1px] w-4 bg-fk-gold"></span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Bar -->
+                <nav class="hidden lg:flex items-center space-x-8 text-xs uppercase tracking-widest font-semibold text-fk-dark">
+                    <a href="#new-arrivals" class="hover:text-fk-rose transition-colors py-2 border-b-2 border-transparent hover:border-fk-rose">New Arrivals</a>
+                    
+                    <!-- Mega Menu Dropdown Trigger -->
+                    <div class="relative group py-6">
+                        <a href="#collections" class="hover:text-fk-rose transition-colors flex items-center gap-1 cursor-pointer">
+                            Collections <i class="fa-solid fa-chevron-down text-[9px] text-fk-gold"></i>
+                        </a>
+                        
+                        <!-- Mega Menu Panel -->
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-[850px] bg-fk-cream-light border-2 border-fk-gold/40 shadow-2xl rounded-2xl p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 grid grid-cols-4 gap-6 z-50">
+                            <div>
+                                <h4 class="font-cinzel font-bold text-fk-gold-dark border-b border-fk-pink-deep pb-2 mb-3 text-xs">Fairytale Series</h4>
+                                <ul class="space-y-2 text-xs normal-case font-medium text-fk-dark/80">
+                                    <li><a href="#collections" class="hover:text-fk-rose transition-colors flex items-center gap-2"><i class="fa-solid fa-gem text-[10px] text-fk-gold"></i> Swan Ballet</a></li>
+                                    <li><a href="#collections" class="hover:text-fk-rose transition-colors flex items-center gap-2"><i class="fa-solid fa-water text-[10px] text-fk-rose"></i> Moonlight Mermaid</a></li>
+                                    <li><a href="#collections" class="hover:text-fk-rose transition-colors flex items-center gap-2"><i class="fa-solid fa-cookie text-[10px] text-fk-gold-dark"></i> Strawberry Rococo</a></li>
+                                    <li><a href="#collections" class="hover:text-fk-rose transition-colors flex items-center gap-2"><i class="fa-solid fa-mug-hot text-[10px] text-fk-bronze"></i> Chocolate Wonder-Shop</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-cinzel font-bold text-fk-gold-dark border-b border-fk-pink-deep pb-2 mb-3 text-xs">Lip Magic</h4>
+                                <ul class="space-y-2 text-xs normal-case font-medium text-fk-dark/80">
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Watery Lip Gloss</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Velvet Lip Mud</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Matte Lipstick</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Nourishing Lip Oil</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-cinzel font-bold text-fk-gold-dark border-b border-fk-pink-deep pb-2 mb-3 text-xs">Face & Eyes</h4>
+                                <ul class="space-y-2 text-xs normal-case font-medium text-fk-dark/80">
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Embossed Blush</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">5-Color Eyeshadow</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Setting Loose Powder</a></li>
+                                    <li><a href="#products" class="hover:text-fk-rose transition-colors">Highlighter & Contour</a></li>
+                                </ul>
+                            </div>
+                            <div class="bg-fk-pink/50 rounded-xl p-3 border border-fk-pink-deep flex flex-col justify-between">
+                                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=400&auto=format&fit=crop" class="w-full h-28 object-cover rounded-lg shadow-sm mb-2">
+                                <span class="font-cormorant font-bold italic text-fk-rose text-sm">New Collection Arrival</span>
+                                <a href="#collections" class="mt-2 text-center py-1.5 bg-fk-rose text-white text-[10px] font-bold rounded-full uppercase hover:bg-fk-dark transition-colors">Discover Swan Ballet</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#products" class="hover:text-fk-rose transition-colors py-2 border-b-2 border-transparent hover:border-fk-rose">Lip</a>
+                    <a href="#products" class="hover:text-fk-rose transition-colors py-2 border-b-2 border-transparent hover:border-fk-rose">Face</a>
+                    <a href="#products" class="hover:text-fk-rose transition-colors py-2 border-b-2 border-transparent hover:border-fk-rose">Eyes</a>
+                    <a href="#lookbook" class="hover:text-fk-rose transition-colors py-2 border-b-2 border-transparent hover:border-fk-rose">Lookbook</a>
+                </nav>
+
+                <!-- Header Right Action Buttons -->
+                <div class="flex items-center space-x-3 sm:space-x-5">
+                    <button id="open-search-btn" class="p-2 text-fk-dark hover:text-fk-rose transition-colors relative" title="Search Products">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+                    <button id="open-wishlist-btn" class="p-2 text-fk-dark hover:text-fk-rose transition-colors relative hidden sm:block" title="Wishlist">
+                        <i class="fa-regular fa-heart text-lg"></i>
+                        <span id="wishlist-badge" class="absolute top-0 right-0 bg-fk-rose text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                    <button id="open-cart-btn" class="p-2 text-fk-dark hover:text-fk-rose transition-colors relative" title="Shopping Cart">
+                        <i class="fa-solid fa-bag-shopping text-lg"></i>
+                        <span id="cart-badge" class="absolute top-0 right-0 bg-fk-rose text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Slider Section -->
+    <section class="relative overflow-hidden bg-fk-pink/30">
+        <div id="hero-slider" class="relative min-h-[520px] sm:min-h-[640px] flex items-center">
+            
+            <!-- Slide 1 -->
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-100 flex items-center" style="background: linear-gradient(90deg, rgba(252,249,246,0.92) 0%, rgba(252,249,246,0.4) 60%, rgba(252,249,246,0) 100%), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;">
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full">
+                    <div class="max-w-xl space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-fk-gold rounded-full shadow-sm">
+                            <i class="fa-solid fa-crown text-fk-gold text-xs"></i>
+                            <span class="text-fk-gold-dark text-xs tracking-widest font-bold uppercase">The Swan Ballet Series</span>
+                        </div>
+                        <h1 class="font-cinzel text-4xl sm:text-6xl text-fk-dark font-bold leading-tight">Grace in Every<br><span class="italic font-cormorant font-normal text-fk-rose">Vintage Detail</span></h1>
+                        <p class="font-cormorant text-lg sm:text-xl text-fk-dark/80 italic">Inspired by classical ballet art and European royal dreams. Hand-carved silver and etched glass craftsmanship.</p>
+                        <div class="pt-4 flex flex-wrap gap-4">
+                            <a href="#collections" class="px-8 py-3.5 bg-fk-rose text-white hover:bg-fk-dark transition-all rounded-full font-medium text-xs tracking-widest uppercase shadow-lg border-2 border-fk-pink-deep hover:border-fk-gold">Explore Collection</a>
+                            <a href="#products" class="px-8 py-3.5 bg-white text-fk-dark border-2 border-fk-gold/50 hover:bg-fk-pink transition-all rounded-full font-medium text-xs tracking-widest uppercase shadow-sm">Shop All Beauty</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-slide absolute inset-0 transition-opacity duration-1000 opacity-0 flex items-center" style="background: linear-gradient(90deg, rgba(252,249,246,0.92) 0%, rgba(252,249,246,0.4) 60%, rgba(252,249,246,0) 100%), url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;">
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full">
+                    <div class="max-w-xl space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/80 border border-fk-gold rounded-full shadow-sm">
+                            <i class="fa-solid fa-heart text-fk-rose text-xs"></i>
+                            <span class="text-fk-gold-dark text-xs tracking-widest font-bold uppercase">Strawberry Rococo</span>
+                        </div>
+                        <h1 class="font-cinzel text-4xl sm:text-6xl text-fk-dark font-bold leading-tight">Sweet 18th Century<br><span class="italic font-cormorant font-normal text-fk-rose">Rococo Splendor</span></h1>
+                        <p class="font-cormorant text-lg sm:text-xl text-fk-dark/80 italic">Blending sweet strawberry tones with opulent 18th-century antique compact design aesthetics.</p>
+                        <div class="pt-4 flex flex-wrap gap-4">
+                            <a href="#collections" class="px-8 py-3.5 bg-fk-rose text-white hover:bg-fk-dark transition-all rounded-full font-medium text-xs tracking-widest uppercase shadow-lg border-2 border-fk-pink-deep">Shop Rococo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider Navigation Buttons -->
+            <button id="prev-slide-btn" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-fk-dark shadow-md flex items-center justify-center transition-all border border-fk-gold/40 z-10" aria-label="Previous Slide">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="next-slide-btn" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 hover:bg-white text-fk-dark shadow-md flex items-center justify-center transition-all border border-fk-gold/40 z-10" aria-label="Next Slide">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Collections Showcase -->
+    <section id="collections" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="font-cormorant text-2xl text-fk-rose italic block">Curated Masterpieces</span>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-fk-dark uppercase tracking-wider mt-1">Featured Collections</h2>
+            <div class="flex items-center justify-center gap-3 my-3">
+                <span class="h-[1px] w-12 bg-fk-gold"></span>
+                <i class="fa-solid fa-diamond text-[10px] text-fk-gold"></i>
+                <span class="h-[1px] w-12 bg-fk-gold"></span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Collection Card 1 -->
+            <div class="group relative rounded-3xl overflow-hidden vintage-border bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                <div class="h-96 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=800&auto=format&fit=crop" alt="Swan Ballet" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fk-dark/80 via-fk-dark/20 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 inset-x-0 p-8 text-white text-center flex flex-col items-center">
+                    <span class="text-[10px] uppercase tracking-widest text-fk-gold-light font-bold bg-fk-gold-dark/40 px-3 py-0.5 rounded-full backdrop-blur-sm border border-fk-gold/30">Limited Edition</span>
+                    <h3 class="font-cinzel text-2xl font-bold mt-2">Swan Ballet Series</h3>
+                    <p class="font-cormorant italic text-sm text-fk-pink/90 mt-1">Silver mirror engraving & glass compacts</p>
+                    <a href="#products" onclick="filterProductsByCollection('swan')" class="mt-5 px-6 py-2.5 bg-white/20 backdrop-blur-md border border-white/60 text-white hover:bg-white hover:text-fk-dark text-xs uppercase tracking-widest font-bold rounded-full transition-all shadow-md">Explore Series</a>
+                </div>
+            </div>
+
+            <!-- Collection Card 2 -->
+            <div class="group relative rounded-3xl overflow-hidden vintage-border bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                <div class="h-96 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800&auto=format&fit=crop" alt="Strawberry Rococo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fk-dark/80 via-fk-dark/20 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 inset-x-0 p-8 text-white text-center flex flex-col items-center">
+                    <span class="text-[10px] uppercase tracking-widest text-fk-gold-light font-bold bg-fk-gold-dark/40 px-3 py-0.5 rounded-full backdrop-blur-sm border border-fk-gold/30">Most Popular</span>
+                    <h3 class="font-cinzel text-2xl font-bold mt-2">Strawberry Rococo</h3>
+                    <p class="font-cormorant italic text-sm text-fk-pink/90 mt-1">Vintage strawberry pastel aesthetic</p>
+                    <a href="#products" onclick="filterProductsByCollection('rococo')" class="mt-5 px-6 py-2.5 bg-white/20 backdrop-blur-md border border-white/60 text-white hover:bg-white hover:text-fk-dark text-xs uppercase tracking-widest font-bold rounded-full transition-all shadow-md">Explore Series</a>
+                </div>
+            </div>
+
+            <!-- Collection Card 3 -->
+            <div class="group relative rounded-3xl overflow-hidden vintage-border bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                <div class="h-96 relative overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1583241800698-e8ab01c85b27?q=80&w=800&auto=format&fit=crop" alt="Chocolate Wonder-Shop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fk-dark/80 via-fk-dark/20 to-transparent"></div>
+                </div>
+                <div class="absolute bottom-0 inset-x-0 p-8 text-white text-center flex flex-col items-center">
+                    <span class="text-[10px] uppercase tracking-widest text-fk-gold-light font-bold bg-fk-gold-dark/40 px-3 py-0.5 rounded-full backdrop-blur-sm border border-fk-gold/30">Warm & Cozy</span>
+                    <h3 class="font-cinzel text-2xl font-bold mt-2">Chocolate Wonder-Shop</h3>
+                    <p class="font-cormorant italic text-sm text-fk-pink/90 mt-1">Rich cocoa palette & golden vintage cases</p>
+                    <a href="#products" onclick="filterProductsByCollection('chocolate')" class="mt-5 px-6 py-2.5 bg-white/20 backdrop-blur-md border border-white/60 text-white hover:bg-white hover:text-fk-dark text-xs uppercase tracking-widest font-bold rounded-full transition-all shadow-md">Explore Series</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers Product Grid Section -->
+    <section id="products" class="py-20 px-4 max-w-7xl mx-auto bg-white rounded-3xl shadow-sm border border-fk-soft-border my-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="font-cormorant text-2xl text-fk-rose italic block">Beloved Royalty Favorites</span>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-fk-dark uppercase tracking-wider mt-1">Shop Beauty Creations</h2>
+            <div class="flex items-center justify-center gap-3 my-3">
+                <span class="h-[1px] w-12 bg-fk-gold"></span>
+                <i class="fa-solid fa-crown text-xs text-fk-gold"></i>
+                <span class="h-[1px] w-12 bg-fk-gold"></span>
+            </div>
+        </div>
+
+        <!-- Filter Category Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12 text-xs uppercase tracking-wider font-bold">
+            <button class="filter-tab active-tab px-6 py-2.5 rounded-full border-2 border-fk-gold bg-fk-gold text-white transition-all shadow-sm" data-category="all">All Products</button>
+            <button class="filter-tab px-6 py-2.5 rounded-full border-2 border-fk-pink-deep text-fk-dark hover:border-fk-gold transition-all" data-category="lip">Lipstick & Gloss</button>
+            <button class="filter-tab px-6 py-2.5 rounded-full border-2 border-fk-pink-deep text-fk-dark hover:border-fk-gold transition-all" data-category="face">Embossed Blush</button>
+            <button class="filter-tab px-6 py-2.5 rounded-full border-2 border-fk-pink-deep text-fk-dark hover:border-fk-gold transition-all" data-category="eyes">Eyeshadow Palettes</button>
+            <button class="filter-tab px-6 py-2.5 rounded-full border-2 border-fk-pink-deep text-fk-dark hover:border-fk-gold transition-all" data-category="accessories">Hand Mirrors & Accessories</button>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product Cards Populated via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Interactive Shoppable Lookbook / Shop By Aesthetic -->
+    <section id="lookbook" class="py-20 px-4 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="font-cormorant text-2xl text-fk-rose italic block">Fairytale Inspiration</span>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-fk-dark uppercase tracking-wider mt-1">Shop By Aesthetic</h2>
+            <p class="text-xs text-fk-dark/70 mt-2">Click on interactive hotspots on models to view exact makeup products used.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-fk-pink/30 rounded-3xl p-6 sm:p-10 border border-fk-pink-deep">
+            
+            <!-- Hotspot Model Container -->
+            <div class="relative rounded-2xl overflow-hidden shadow-xl border-2 border-fk-gold/40">
+                <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?q=80&w=900&auto=format&fit=crop" alt="Lookbook Princess Model" class="w-full h-[480px] object-cover">
+                
+                <!-- Hotspot 1: Lip -->
+                <button onclick="showHotspotProduct(1)" class="absolute top-[68%] left-[48%] w-8 h-8 rounded-full bg-fk-rose text-white flex items-center justify-center font-bold text-xs shadow-lg border-2 border-white hotspot-pulse hover:scale-110 transition-transform" title="Lips Product">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <!-- Hotspot 2: Eyes -->
+                <button onclick="showHotspotProduct(3)" class="absolute top-[38%] left-[52%] w-8 h-8 rounded-full bg-fk-gold text-white flex items-center justify-center font-bold text-xs shadow-lg border-2 border-white hotspot-pulse hover:scale-110 transition-transform" title="Eye Makeup">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+                <!-- Hotspot 3: Cheek Blush -->
+                <button onclick="showHotspotProduct(2)" class="absolute top-[48%] left-[38%] w-8 h-8 rounded-full bg-fk-rose text-white flex items-center justify-center font-bold text-xs shadow-lg border-2 border-white hotspot-pulse hover:scale-110 transition-transform" title="Blush Product">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <!-- Hotspot Product Details Side Display -->
+            <div id="hotspot-detail-card" class="bg-white rounded-2xl p-8 border vintage-border space-y-4 shadow-lg flex flex-col justify-between h-[480px]">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-fk-gold-dark bg-fk-gold/10 px-3 py-1 rounded-full border border-fk-gold/30">Lookbook Featured Item</span>
+                    <h3 id="hs-title" class="font-cinzel text-2xl font-bold text-fk-dark mt-3">Swan Ballet Velvet Lipstick</h3>
+                    <p id="hs-shade" class="text-xs text-fk-rose font-bold mt-1">Shade: B01 Mary's Rose</p>
+                    <p id="hs-desc" class="text-xs text-fk-dark/80 leading-relaxed mt-3">Used on model to create that iconic soft-focus fairytale gradient lip look. Hydrating velvet texture with embossed swan motif casing.</p>
+                </div>
+
+                <div class="flex items-center gap-4 my-4 p-3 bg-fk-cream rounded-xl border border-fk-soft-border">
+                    <img id="hs-img" src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=400&auto=format&fit=crop" class="w-20 h-20 object-contain bg-white rounded-lg border">
+                    <div>
+                        <span id="hs-price" class="text-xl font-bold text-fk-rose">$26.00</span>
+                        <div class="text-fk-gold text-xs mt-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> (128 reviews)
+                        </div>
+                    </div>
+                </div>
+
+                <button id="hs-add-btn" class="w-full py-3.5 bg-fk-rose hover:bg-fk-dark text-white rounded-full font-bold text-xs uppercase tracking-widest shadow-md transition-all border-2 border-fk-pink-deep">
+                    Add Look Item To Cart
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story & Fairytale Artistry -->
+    <section id="about" class="py-20 px-4 bg-fk-pink/20 my-12 border-y border-fk-pink-deep/40">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-1/2 relative">
+                <div class="vintage-border p-3 rounded-3xl bg-white shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop" alt="Flower Knows Craftsmanship" class="rounded-2xl w-full object-cover h-96">
+                </div>
+                <div class="absolute -top-6 -left-6 bg-fk-gold text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-xl border-2 border-white">
+                    👑
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 space-y-5">
+                <span class="font-cormorant text-2xl text-fk-rose italic block">Hand-Carved European Elegance</span>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-fk-dark leading-tight">Every Product Is A Collectible Work Of Art</h2>
+                <p class="text-xs text-fk-dark/80 leading-relaxed">
+                    Flower Knows was created out of a deep passion for fairytale romanticism and antique European craftsmanship. Every compact, lipstick, and palette features custom 3D carved artwork, weighted metallic casing, and intricate vintage gold details.
+                </p>
+                <div class="grid grid-cols-3 gap-4 border-t border-fk-pink-deep/50 pt-4 text-center">
+                    <div>
+                        <span class="font-cinzel text-xl sm:text-2xl font-bold text-fk-gold-dark">100%</span>
+                        <p class="text-[10px] text-fk-dark/70 uppercase tracking-wider font-bold">Cruelty-Free</p>
+                    </div>
+                    <div>
+                        <span class="font-cinzel text-xl sm:text-2xl font-bold text-fk-gold-dark">3D</span>
+                        <p class="text-[10px] text-fk-dark/70 uppercase tracking-wider font-bold">Relief Carving</p>
+                    </div>
+                    <div>
+                        <span class="font-cinzel text-xl sm:text-2xl font-bold text-fk-gold-dark">Custom</span>
+                        <p class="text-[10px] text-fk-dark/70 uppercase tracking-wider font-bold">Molded Cases</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-fk-dark text-white/80 pt-20 pb-10 border-t-4 border-fk-gold">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
+            
+            <!-- Column 1: Brand Info -->
+            <div class="space-y-4">
+                <span class="font-cinzel text-2xl font-bold text-white tracking-widest uppercase block">FLOWER KNOWS</span>
+                <p class="text-xs text-white/70 leading-relaxed">
+                    Bringing fairytale dreams into your daily makeup routine with exquisite vintage craftsmanship and high-performance formulas.
+                </p>
+                <div class="flex space-x-3 pt-2">
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fk-rose flex items-center justify-center transition-colors text-white"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fk-rose flex items-center justify-center transition-colors text-white"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fk-rose flex items-center justify-center transition-colors text-white"><i class="fa-brands fa-pinterest"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-fk-rose flex items-center justify-center transition-colors text-white"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Column 2: Collections -->
+            <div>
+                <h4 class="font-cinzel text-sm font-bold text-fk-gold-light tracking-wider uppercase mb-4 border-b border-white/10 pb-2">Collections</h4>
+                <ul class="space-y-2.5 text-xs text-white/70">
+                    <li><a href="#collections" class="hover:text-fk-pink-deep transition-colors">Swan Ballet Series</a></li>
+                    <li><a href="#collections" class="hover:text-fk-pink-deep transition-colors">Strawberry Rococo</a></li>
+                    <li><a href="#collections" class="hover:text-fk-pink-deep transition-colors">Moonlight Mermaid</a></li>
+                    <li><a href="#collections" class="hover:text-fk-pink-deep transition-colors">Chocolate Wonder-Shop</a></li>
+                    <li><a href="#collections" class="hover:text-fk-pink-deep transition-colors">Unicorn Series</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Customer Care -->
+            <div>
+                <h4 class="font-cinzel text-sm font-bold text-fk-gold-light tracking-wider uppercase mb-4 border-b border-white/10 pb-2">Customer Care</h4>
+                <ul class="space-y-2.5 text-xs text-white/70">
+                    <li><a href="#" class="hover:text-fk-pink-deep transition-colors">Track Your Order</a></li>
+                    <li><a href="#" class="hover:text-fk-pink-deep transition-colors">Shipping Policy & Rates</a></li>
+                    <li><a href="#" class="hover:text-fk-pink-deep transition-colors">Returns & Refunds</a></li>
+                    <li><a href="#" class="hover:text-fk-pink-deep transition-colors">Authenticity Guarantee</a></li>
+                    <li><a href="#" class="hover:text-fk-pink-deep transition-colors">FAQ & Help Center</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Newsletter -->
+            <div>
+                <h4 class="font-cinzel text-sm font-bold text-fk-gold-light tracking-wider uppercase mb-4 border-b border-white/10 pb-2">Royal Newsletter</h4>
+                <p class="text-xs text-white/70 mb-3">Subscribe to receive 10% OFF your first order & exclusive fairytale drops.</p>
+                <form id="newsletter-form" class="space-y-2">
+                    <input type="email" placeholder="Enter your email address..." required class="w-full px-4 py-2.5 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-fk-gold text-xs text-white placeholder-white/40">
+                    <button type="submit" class="w-full py-2.5 bg-fk-gold hover:bg-fk-gold-dark text-fk-dark font-bold text-xs uppercase tracking-widest rounded-full transition-colors shadow-md">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-white/50 gap-4">
+            <p>© 2026 Flower Knows Cosmetics. Official Style Replica. All Rights Reserved.</p>
+            <div class="flex items-center space-x-4 text-xl">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-cc-paypal"></i>
+                <i class="fa-brands fa-cc-apple-pay"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-out Shopping Cart Drawer -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full max-w-md bg-fk-cream shadow-2xl z-50 transform translate-x-full drawer-slide flex flex-col border-l-2 border-fk-gold">
+            
+            <!-- Drawer Header -->
+            <div class="p-5 border-b border-fk-pink-deep/40 flex justify-between items-center bg-white">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-fk-rose"></i>
+                    <h3 class="font-cinzel text-lg font-bold text-fk-dark">Your Royal Cart</h3>
+                    <span id="drawer-cart-count" class="text-xs bg-fk-pink text-fk-rose font-bold px-2.5 py-0.5 rounded-full border border-fk-rose/30">(0)</span>
+                </div>
+                <button id="close-cart-btn" class="p-2 text-fk-dark hover:text-fk-rose"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <!-- Free Shipping Progress -->
+            <div class="p-4 bg-fk-pink/50 border-b border-fk-pink-deep/30 text-xs">
+                <p id="shipping-progress-text" class="text-center font-medium text-fk-dark mb-1.5">
+                    Add <span id="shipping-needed-amount" class="font-bold text-fk-rose">$50.00</span> more to unlock <span class="font-bold text-fk-gold-dark">Free Worldwide Shipping</span>!
+                </p>
+                <div class="w-full bg-white h-2.5 rounded-full overflow-hidden border border-fk-pink-deep/50 p-0.5">
+                    <div id="shipping-progress-bar" class="bg-gradient-to-r from-fk-pink-deep to-fk-rose h-full rounded-full w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-4">
+                <!-- Items dynamically rendered here -->
+            </div>
+
+            <!-- Cart Footer Summary -->
+            <div class="p-5 border-t border-fk-pink-deep/40 bg-white space-y-3">
+                <div class="flex justify-between text-sm text-fk-dark font-medium">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold text-lg text-fk-rose">$0.00</span>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="promo-input" placeholder="Promo code (e.g. FLOWER10)" class="flex-1 text-xs border border-fk-pink-deep rounded-full px-4 py-2 focus:outline-none focus:border-fk-gold">
+                    <button id="apply-promo-btn" class="px-4 py-2 bg-fk-dark text-white text-xs font-bold rounded-full hover:bg-fk-rose transition-colors">Apply</button>
+                </div>
+                <button id="checkout-btn" class="w-full py-3.5 bg-fk-rose hover:bg-fk-dark text-white rounded-full font-bold text-xs uppercase tracking-widest transition-all shadow-lg border-2 border-fk-pink-deep">
+                    Proceed To Royal Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Product Modal -->
+    <div id="quickview-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none modal-fade">
+        <div class="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative border-2 border-fk-gold flex flex-col md:flex-row max-h-[90vh]">
+            <button id="close-quickview" class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 rounded-full flex items-center justify-center text-fk-dark hover:bg-fk-rose hover:text-white transition-colors shadow">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Product Image -->
+            <div class="w-full md:w-1/2 bg-fk-pink/20 p-8 flex items-center justify-center">
+                <img id="qv-image" src="" class="max-h-80 object-contain rounded-2xl shadow-md">
+            </div>
+
+            <!-- Modal Product Info -->
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-between space-y-4 overflow-y-auto">
+                <div>
+                    <span id="qv-category" class="text-[10px] uppercase tracking-widest text-fk-gold-dark font-bold bg-fk-gold/10 px-2.5 py-0.5 rounded-full border border-fk-gold/30">Category</span>
+                    <h3 id="qv-title" class="font-cinzel text-2xl font-bold text-fk-dark mt-2">Product Title</h3>
+                    
+                    <div class="flex items-center space-x-2 mt-2">
+                        <div id="qv-stars" class="text-fk-gold text-xs"></div>
+                        <span id="qv-reviews" class="text-xs text-gray-500">(0 reviews)</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-3">
+                        <span id="qv-price" class="text-2xl font-bold text-fk-rose">$0.00</span>
+                        <span id="qv-old-price" class="text-sm text-gray-400 line-through">$0.00</span>
+                    </div>
+
+                    <p id="qv-desc" class="text-xs text-fk-dark/80 mt-3 leading-relaxed">Product description text...</p>
+                </div>
+
+                <!-- Shade Swatches Selector -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider mb-2 text-fk-dark">Select Shade Tone:</label>
+                    <div id="qv-swatches" class="flex flex-wrap gap-2"></div>
+                </div>
+
+                <!-- Quantity & Add Button -->
+                <div class="space-y-3 pt-3 border-t border-fk-pink-deep/40">
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-bold uppercase">Quantity:</span>
+                        <div class="flex items-center border border-fk-pink-deep rounded-full overflow-hidden bg-fk-cream">
+                            <button id="qv-qty-minus" class="px-3 py-1 text-fk-dark font-bold hover:bg-fk-pink">-</button>
+                            <span id="qv-qty-val" class="px-4 py-1 text-xs font-bold">1</span>
+                            <button id="qv-qty-plus" class="px-3 py-1 text-fk-dark font-bold hover:bg-fk-pink">+</button>
+                        </div>
+                    </div>
+                    <button id="qv-add-cart-btn" class="w-full py-3.5 bg-fk-rose hover:bg-fk-dark text-white rounded-full font-bold text-xs uppercase tracking-widest shadow-md transition-all">
+                        Add To Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Search Overlay Bar -->
+    <div id="search-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-start justify-center pt-20 p-4 opacity-0 pointer-events-none modal-fade">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border-2 border-fk-gold relative">
+            <div class="flex items-center gap-3 border-b-2 border-fk-pink-deep pb-3">
+                <i class="fa-solid fa-magnifying-glass text-fk-rose text-lg"></i>
+                <input type="text" id="live-search-input" placeholder="Search Swan Ballet, lipstick, blush, eyeshadow..." class="w-full text-sm focus:outline-none font-medium text-fk-dark placeholder-fk-dark/40">
+                <button id="close-search-modal" class="text-xs uppercase text-fk-rose font-bold px-2 hover:underline">Close</button>
+            </div>
+            
+            <div id="search-results-container" class="mt-4 max-h-80 overflow-y-auto space-y-2">
+                <p class="text-xs text-gray-400 text-center py-6">Type to search Flower Knows collection...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Live Customization Editor Button -->
+    <button id="toggle-editor-btn" class="fixed bottom-5 left-5 z-40 bg-fk-dark text-white text-xs px-4 py-3 rounded-full shadow-2xl flex items-center gap-2 border-2 border-fk-gold hover:bg-fk-rose transition-all">
+        <i class="fa-solid fa-wand-magic-sparkles text-fk-gold"></i> Edit Page Content
+    </button>
+
+    <!-- Floating Live Editor Panel -->
+    <div id="editor-panel" class="fixed bottom-20 left-5 z-40 w-80 bg-white rounded-2xl shadow-2xl border-2 border-fk-gold p-5 hidden text-xs space-y-4">
+        <div class="flex justify-between items-center border-b pb-2">
+            <h4 class="font-cinzel font-bold text-fk-dark">Live Brand Configurator</h4>
+            <button id="close-editor" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div>
+            <label class="block font-bold mb-1">Brand Name:</label>
+            <input type="text" id="edit-brand-name" value="FLOWER KNOWS" class="w-full border rounded-lg px-3 py-1.5 focus:outline-none focus:border-fk-gold">
+        </div>
+        <div>
+            <label class="block font-bold mb-1">Announcement Marquee Text:</label>
+            <input type="text" id="edit-announcement" value="Free Gift on Orders Over $50 | Free Worldwide Express Shipping" class="w-full border rounded-lg px-3 py-1.5 focus:outline-none focus:border-fk-gold">
+        </div>
+        <div>
+            <label class="block font-bold mb-1">Primary Color (Accent):</label>
+            <input type="color" id="edit-primary-color" value="#D87093" class="w-full h-8 cursor-pointer rounded border">
+        </div>
+        <p class="text-[10px] text-gray-400 italic">All modifications update instantly across the website context.</p>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           FLOWER KNOWS OFFICIAL PRODUCTS DATA STORE
+           ========================================================================== */
+        const PRODUCTS_DATA = [
+            {
+                id: 1,
+                name: "Swan Ballet Velvet Lipstick",
+                category: "lip",
+                collection: "swan",
+                price: 26.00,
+                oldPrice: 32.00,
+                rating: 5,
+                reviews: 142,
+                badge: "Hot Seller",
+                image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=600&auto=format&fit=crop",
+                hoverImage: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600&auto=format&fit=crop",
+                description: "Embossed swan motif silver casing with long-lasting hydrating velvet formula.",
+                shades: [
+                    { name: "B01 Mary's Rose", color: "#d15b6d" },
+                    { name: "B02 Sweet Ballet", color: "#e38292" },
+                    { name: "B03 Black Swan", color: "#7a2231" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Strawberry Rococo Embossed Blush",
+                category: "face",
+                collection: "rococo",
+                price: 28.00,
+                oldPrice: 34.00,
+                rating: 5,
+                reviews: 98,
+                badge: "New Arrival",
+                image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop",
+                hoverImage: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop",
+                description: "Features detailed rococo antique frame embossing for a silky flushed finish.",
+                shades: [
+                    { name: "01 Angel Berry", color: "#f7a8b8" },
+                    { name: "02 Vintage Peach", color: "#f2a085" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Swan Ballet 5-Color Eyeshadow Palette",
+                category: "eyes",
+                collection: "swan",
+                price: 38.00,
+                oldPrice: 45.00,
+                rating: 4.9,
+                reviews: 215,
+                badge: "Limited Edition",
+                image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=600&auto=format&fit=crop",
+                hoverImage: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=600&auto=format&fit=crop",
+                description: "Fine buttery mattes paired with diamond shimmer finishes in compact mirror case.",
+                shades: [
+                    { name: "01 White Swan Pink", color: "#e8b0bd" },
+                    { name: "02 Black Swan Smoky", color: "#6e6063" }
+                ]
+            },
+            {
+                id: 4,
+                name: "Chocolate Wonder-Shop Hand Mirror",
+                category: "accessories",
+                collection: "chocolate",
+                price: 22.00,
+                oldPrice: 26.00,
+                rating: 5,
+                reviews: 87,
+                badge: "Fan Favorite",
+                image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600&auto=format&fit=crop",
+                hoverImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=600&auto=format&fit=crop",
+                description: "Vintage vintage gilded handheld mirror with detailed chocolate stamp artwork.",
+                shades: [
+                    { name: "Antique Bronze", color: "#8b6b23" }
+                ]
+            }
+        ];
+
+        // Global State Engine
+        let cart = [];
+        let wishlist = [];
+        let currentCurrency = "USD";
+        let currencyRates = { USD: 1, EUR: 0.92, JPY: 155, VND: 25000 };
+        let currencySymbols = { USD: "$", EUR: "€", JPY: "¥", VND: "₫" };
+        let currentQuickViewProduct = null;
+        let selectedShade = null;
+        let quickViewQty = 1;
+
+        // Price Formatter Engine
+        function formatPrice(amountInUSD) {
+            const converted = amountInUSD * currencyRates[currentCurrency];
+            const symbol = currencySymbols[currentCurrency];
+            if (currentCurrency === "JPY" || currentCurrency === "VND") {
+                return `${symbol}${Math.round(converted).toLocaleString()}`;
+            }
+            return `${symbol}${converted.toFixed(2)}`;
+        }
+
+        // Render Product Cards Grid
+        function renderProducts(filterCategory = "all") {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            const filtered = filterCategory === 'all' 
+                ? PRODUCTS_DATA 
+                : PRODUCTS_DATA.filter(p => p.category === filterCategory || p.collection === filterCategory);
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "group bg-fk-cream-light rounded-3xl border border-fk-soft-border hover:border-fk-gold p-4 transition-all duration-500 hover:shadow-2xl relative flex flex-col justify-between";
+
+                const isWishlisted = wishlist.includes(product.id);
+                const stars = Array(5).fill(0).map((_, i) => `<i class="fa-solid fa-star text-fk-gold text-[10px]"></i>`).join('');
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Top Badge & Wishlist -->
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-[9px] uppercase tracking-widest font-bold bg-fk-rose text-white px-2.5 py-0.5 rounded-full shadow-sm">
+                                ${product.badge}
+                            </span>
+                            <button onclick="toggleWishlist(${product.id})" class="w-8 h-8 rounded-full bg-white text-fk-dark hover:text-fk-rose flex items-center justify-center transition-all shadow-sm hover:scale-110">
+                                <i class="${isWishlisted ? 'fa-solid text-fk-rose' : 'fa-regular'} fa-heart text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Image Container with Dual Image Swap -->
+                        <div class="relative overflow-hidden rounded-2xl aspect-square mb-4 bg-white p-2 border border-fk-soft-border group-hover:border-fk-gold-light transition-colors">
+                            <img src="${product.image}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+                            
+                            <!-- Quick View Overlay Button -->
+                            <button onclick="openQuickView(${product.id})" class="absolute inset-x-4 bottom-4 py-2 bg-white/90 backdrop-blur-md text-fk-dark text-[11px] font-bold uppercase tracking-widest rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-fk-rose hover:text-white border border-fk-gold/30">
+                                <i class="fa-regular fa-eye mr-1"></i> Quick View
+                            </button>
+                        </div>
+
+                        <!-- Title & Reviews -->
+                        <span class="text-[9px] uppercase tracking-widest text-fk-gold-dark font-bold">${product.collection} Series</span>
+                        <h3 onclick="openQuickView(${product.id})" class="font-cinzel font-bold text-sm text-fk-dark hover:text-fk-rose cursor-pointer transition-colors line-clamp-1 mt-0.5">${product.name}</h3>
+                        
+                        <div class="flex items-center space-x-1 mt-1">
+                            ${stars}
+                            <span class="text-[10px] text-gray-400 font-medium">(${product.reviews})</span>
+                        </div>
+
+                        <!-- Shade Swatches -->
+                        <div class="flex gap-1.5 my-3">
+                            ${product.shades.map(s => `<span class="w-3.5 h-3.5 rounded-full border border-black/20" style="background-color: ${s.color}" title="${s.name}"></span>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Bottom Price & Quick Add -->
+                    <div class="pt-3 border-t border-fk-soft-border flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-base text-fk-rose">${formatPrice(product.price)}</span>
+                            <span class="text-xs text-gray-400 line-through ml-1">${formatPrice(product.oldPrice)}</span>
+                        </div>
+                        <button onclick="quickAddToCart(${product.id})" class="w-9 h-9 rounded-full bg-fk-pink hover:bg-fk-rose text-fk-rose hover:text-white flex items-center justify-center transition-all shadow-sm border border-fk-pink-deep">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Quick View Modal
+        function openQuickView(id) {
+            const product = PRODUCTS_DATA.find(p => p.id === id);
+            if (!product) return;
+
+            currentQuickViewProduct = product;
+            selectedShade = product.shades[0];
+            quickViewQty = 1;
+
+            document.getElementById('qv-image').src = product.image;
+            document.getElementById('qv-title').innerText = product.name;
+            document.getElementById('qv-category').innerText = `${product.collection} Series`;
+            document.getElementById('qv-price').innerText = formatPrice(product.price);
+            document.getElementById('qv-old-price').innerText = formatPrice(product.oldPrice);
+            document.getElementById('qv-desc').innerText = product.description;
+            document.getElementById('qv-reviews').innerText = `(${product.reviews} reviews)`;
+            document.getElementById('qv-qty-val').innerText = quickViewQty;
+
+            const swatchesContainer = document.getElementById('qv-swatches');
+            swatchesContainer.innerHTML = '';
+            product.shades.forEach((shade, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border transition-all ${idx === 0 ? 'border-fk-rose bg-fk-pink' : 'border-gray-200'}`;
+                btn.innerHTML = `<span class="w-3 h-3 rounded-full border border-black/20" style="background-color: ${shade.color}"></span> ${shade.name}`;
+                btn.onclick = () => {
+                    selectedShade = shade;
+                    Array.from(swatchesContainer.children).forEach(c => c.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border border-gray-200');
+                    btn.className = 'flex items-center gap-1.5 px-3 py-1 rounded-full text-xs border border-fk-rose bg-fk-pink';
+                };
+                swatchesContainer.appendChild(btn);
+            });
+
+            document.getElementById('quickview-modal').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        // Cart Drawer Operations
+        function toggleCartDrawer(open = true) {
+            const overlay = document.getElementById('cart-drawer-overlay');
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function quickAddToCart(id) {
+            const product = PRODUCTS_DATA.find(p => p.id === id);
+            addToCart(product, product.shades[0], 1);
+        }
+
+        function addToCart(product, shade, qty) {
+            const idx = cart.findIndex(item => item.product.id === product.id && item.shade.name === shade.name);
+            if (idx > -1) {
+                cart[idx].qty += qty;
+            } else {
+                cart.push({ product, shade, qty });
+            }
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const cartBadge = document.getElementById('cart-badge');
+            const drawerCount = document.getElementById('drawer-cart-count');
+            const subtotalEl = document.getElementById('cart-subtotal');
+            const progressBar = document.getElementById('shipping-progress-bar');
+            const neededAmountEl = document.getElementById('shipping-needed-amount');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotalUSD = cart.reduce((sum, item) => sum + (item.product.price * item.qty), 0);
+
+            cartBadge.innerText = totalItems;
+            drawerCount.innerText = `(${totalItems})`;
+            subtotalEl.innerText = formatPrice(subtotalUSD);
+
+            // Free Shipping Progress calculation
+            const freeThresholdUSD = 50.00;
+            const remainingUSD = Math.max(0, freeThresholdUSD - subtotalUSD);
+            neededAmountEl.innerText = formatPrice(remainingUSD);
+            const progressPercent = Math.min((subtotalUSD / freeThresholdUSD) * 100, 100);
+            progressBar.style.width = `${progressPercent}%`;
+
+            container.innerHTML = '';
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-fk-dark/50 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-fk-pink-deep"></i>
+                        <p class="text-xs font-medium">Your shopping bag is currently empty.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = "flex gap-3 bg-white p-3 rounded-2xl border border-fk-soft-border shadow-sm items-center";
+                el.innerHTML = `
+                    <img src="${item.product.image}" class="w-16 h-16 object-contain rounded-xl border bg-fk-cream">
+                    <div class="flex-1">
+                        <h4 class="font-cinzel font-bold text-xs text-fk-dark line-clamp-1">${item.product.name}</h4>
+                        <p class="text-[10px] text-gray-500">Shade: ${item.shade.name}</p>
+                        <span class="text-xs font-bold text-fk-rose">${formatPrice(item.product.price)}</span>
+                        
+                        <div class="flex items-center gap-2 mt-1">
+                            <button onclick="updateQty(${index}, -1)" class="w-5 h-5 rounded-full bg-fk-pink text-xs font-bold">-</button>
+                            <span class="text-xs font-bold">${item.qty}</span>
+                            <button onclick="updateQty(${index}, 1)" class="w-5 h-5 rounded-full bg-fk-pink text-xs font-bold">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-fk-rose p-1"><i class="fa-regular fa-trash-can text-sm"></i></button>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            if (idx > -1) wishlist.splice(idx, 1);
+            else wishlist.push(id);
+            document.getElementById('wishlist-badge').innerText = wishlist.length;
+            renderProducts();
+        }
+
+        // Hotspot Product Display
+        function showHotspotProduct(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('hs-title').innerText = product.name;
+            document.getElementById('hs-shade').innerText = `Shade: ${product.shades[0].name}`;
+            document.getElementById('hs-desc').innerText = product.description;
+            document.getElementById('hs-price').innerText = formatPrice(product.price);
+            document.getElementById('hs-img').src = product.image;
+            document.getElementById('hs-add-btn').onclick = () => addToCart(product, product.shades[0], 1);
+        }
+
+        function filterProductsByCollection(colKey) {
+            renderProducts(colKey);
+        }
+
+        // Initialize All Core Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+
+            // Currency Selector Event
+            document.getElementById('currency-select').addEventListener('change', (e) => {
+                currentCurrency = e.target.value;
+                renderProducts();
+                updateCartUI();
+            });
+
+            // Filter Tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.filter-tab').forEach(t => {
+                        t.classList.remove('bg-fk-gold', 'text-white', 'border-fk-gold');
+                        t.classList.add('border-fk-pink-deep', 'text-fk-dark');
+                    });
+                    e.target.classList.add('bg-fk-gold', 'text-white', 'border-fk-gold');
+                    renderProducts(e.target.dataset.category);
+                });
+            });
+
+            // Drawer Toggle Listeners
+            document.getElementById('open-cart-btn').onclick = () => toggleCartDrawer(true);
+            document.getElementById('close-cart-btn').onclick = () => toggleCartDrawer(false);
+            document.getElementById('cart-drawer-overlay').onclick = (e) => {
+                if (e.target === document.getElementById('cart-drawer-overlay')) toggleCartDrawer(false);
+            };
+
+            // Quick View Listeners
+            document.getElementById('close-quickview').onclick = () => {
+                document.getElementById('quickview-modal').classList.add('opacity-0', 'pointer-events-none');
+            };
+            document.getElementById('qv-qty-plus').onclick = () => {
+                quickViewQty++;
+                document.getElementById('qv-qty-val').innerText = quickViewQty;
+            };
+            document.getElementById('qv-qty-minus').onclick = () => {
+                if (quickViewQty > 1) quickViewQty--;
+                document.getElementById('qv-qty-val').innerText = quickViewQty;
+            };
+            document.getElementById('qv-add-cart-btn').onclick = () => {
+                addToCart(currentQuickViewProduct, selectedShade, quickViewQty);
+                document.getElementById('quickview-modal').classList.add('opacity-0', 'pointer-events-none');
+            };
+
+            // Live Search Overlay Events
+            document.getElementById('open-search-btn').onclick = () => {
+                document.getElementById('search-modal').classList.remove('opacity-0', 'pointer-events-none');
+            };
+            document.getElementById('close-search-modal').onclick = () => {
+                document.getElementById('search-modal').classList.add('opacity-0', 'pointer-events-none');
+            };
+            document.getElementById('live-search-input').oninput = (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const resultsContainer = document.getElementById('search-results-container');
+                
+                if (!query) {
+                    resultsContainer.innerHTML = '<p class="text-xs text-gray-400 text-center py-6">Type to search Flower Knows collection...</p>';
+                    return;
+                }
+
+                const matches = PRODUCTS_DATA.filter(p => p.name.toLowerCase().includes(query) || p.collection.toLowerCase().includes(query));
+                if (matches.length === 0) {
+                    resultsContainer.innerHTML = '<p class="text-xs text-gray-400 text-center py-6">No royal beauty items found.</p>';
+                    return;
+                }
+
+                resultsContainer.innerHTML = '';
+                matches.forEach(m => {
+                    const item = document.createElement('div');
+                    item.className = "flex items-center justify-between p-2 hover:bg-fk-pink/40 rounded-xl cursor-pointer";
+                    item.onclick = () => {
+                        openQuickView(m.id);
+                        document.getElementById('search-modal').classList.add('opacity-0', 'pointer-events-none');
+                    };
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <img src="${m.image}" class="w-10 h-10 object-contain rounded-lg bg-white border">
+                            <div>
+                                <h5 class="font-bold text-xs text-fk-dark">${m.name}</h5>
+                                <span class="text-[10px] text-gray-400 uppercase">${m.collection}</span>
+                            </div>
+                        </div>
+                        <span class="font-bold text-xs text-fk-rose">${formatPrice(m.price)}</span>
+                    `;
+                    resultsContainer.appendChild(item);
+                });
+            };
+
+            // Hero Slider Switcher logic
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.hero-slide');
+            const showSlide = (idx) => {
+                slides.forEach((s, i) => s.style.opacity = i === idx ? '1' : '0');
+            };
+            document.getElementById('next-slide-btn').onclick = () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            };
+            document.getElementById('prev-slide-btn').onclick = () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            };
+
+            // Live Editor Floating Panel
+            document.getElementById('toggle-editor-btn').onclick = () => {
+                document.getElementById('editor-panel').classList.toggle('hidden');
+            };
+            document.getElementById('close-editor').onclick = () => {
+                document.getElementById('editor-panel').classList.add('hidden');
+            };
+
+            document.getElementById('edit-brand-name').oninput = (e) => {
+                const brand = e.target.value || 'FLOWER KNOWS';
+                document.getElementById('brand-logo-text').innerText = brand;
+            };
+            document.getElementById('edit-announcement').oninput = (e) => {
+                document.getElementById('promo-text-display').innerText = e.target.value;
+            };
+        });
+    </script>
+</body>
+</html>
